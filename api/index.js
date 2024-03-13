@@ -6,6 +6,9 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 
+import adminRoute from "./routes/admins.js"
+import userRoute from "./routes/users.js"
+
 const app = express();
 dotenv.config();
 
@@ -37,6 +40,9 @@ app.use(cors({
 }))
 
 app.use(morgan("common"));
+
+app.use("/api/admin", adminRoute);
+app.use("/api/users", userRoute);
 
 app.listen(PORT, () => {
   console.log("Listening on port 7700");

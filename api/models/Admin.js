@@ -14,10 +14,6 @@ const AdminSchema = new mongoose.Schema(
     isAdmin: {
       type: Boolean,
       default: true,
-    },
-    restaurant: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Restaurant'
     }
   },
   { timestamps: true }
