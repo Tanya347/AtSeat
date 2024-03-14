@@ -1,0 +1,213 @@
+body,
+html {
+    overflow-x: hidden;
+}
+
+.createRestContainer {
+    background-color: var(--cream);
+    height: 100%;
+}
+
+.cpContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--maroon);
+    width: 100%;
+    padding: 50px;
+}
+
+.formContainer {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0;
+    flex-wrap: wrap;
+}
+
+.inputContainer {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputContainer button {
+    width: 100px;
+}
+
+.picsContainer {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 0 50px;
+
+}
+
+.picsContainer .formInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.picsContainer .formInput label {
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.picsContainer .formInput label:hover {
+    transform: translateY(-2px);
+}
+
+.picsContainer .uploadedPictures {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.picsContainer h1 {
+    text-align: center;
+    padding: 0 0 20px 0;
+    font-size: 25px;
+    font-size: 1.2rem;
+}
+
+// .createRestContainer .columns {
+//     display: flex;
+//     flex-wrap: wrap;
+//     width: 100%;
+// }
+
+// .createRestContainer .column {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
+//     padding: 0 20px;
+//     width: 50%;
+// }
+
+.star-rating-slider {
+    margin: 5px 0 15px 0;
+}
+
+.star-rating-slider .star-icon{
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+// #lastInput {
+//     width: 95%;
+//     padding-left: 0.8rem;
+
+// }
+
+.createRestContainer .column .input .formInput {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 10px;
+}
+
+.input label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.inputContainer button {
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
+    border: none;
+    background: var(--bright-pink);
+    border-radius: 25px;
+    font-size: 18px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+}
+
+.input input {
+    font-size: 1rem;
+    height: 40px;
+    width: 100%;
+    font-size: 1rem;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid var(--maroon);
+    background: transparent;
+    color: var(--orange);
+}
+
+.createRestContainer .column .input .type {
+    text-align: center;
+    height: 35px;
+    background: white;
+    border-radius: 5px;
+    color: #0c4957;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 800px) {
+    .inputContainer {
+        width: 80%;
+    }
+
+    .picsContainer {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .cpContainer {
+        padding: 0;
+    }
+
+    .formContainer {
+        width: 90%;
+    }
+
+    .inputContainer {
+        width: 100%;
+    }
+
+    .createRestContainer.column {
+        width: 100%;
+        margin-top: 50px;
+
+    }
+
+    .picsContainer {
+        width: 90%;
+    }
+
+    .picsContainer .uploadedPictures {
+        width: 100%;
+    }
+
+    .picsContainer .uploadedPictures img {
+        height: 50px;
+    }
+}
+

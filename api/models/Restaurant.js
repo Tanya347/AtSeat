@@ -6,7 +6,7 @@ const RestaurantSchema = new mongoose.Schema(
         type: 'String',
         required: true
     },
-    address: {
+    location: {
         type: 'String',
         required: true
     },
@@ -18,6 +18,17 @@ const RestaurantSchema = new mongoose.Schema(
         type: 'String',
         required: true
     }, 
+    description: {
+        type: 'String',
+        required: true
+    },
+    photos: {
+        type: [String],
+    },
+    price: {
+        type: 'String',
+        required: true
+    },
     rating: {
         type: Number
     },

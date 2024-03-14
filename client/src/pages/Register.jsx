@@ -57,7 +57,7 @@ function Register({type}) {
                   required
                 />
               </div>
-              {type=="user" && <div className="txt_field">
+              {type==="user" && <div className="txt_field">
                 <input
                   type="email"
                   placeholder="email"

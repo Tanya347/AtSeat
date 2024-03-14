@@ -14,7 +14,15 @@ function App() {
   const { user } = useContext(AuthContext);
 
   const ProtectedRoute = ({ children, redirectTo }) => {
-    if (!user) {
+    if (!user || user.isAdmin) {
+      return <Navigate to={redirectTo} />;
+    } else {
+      return children;
+    }
+  };
+
+  const AdminProtectedRoute = ({ children, redirectTo }) => {
+    if (!user || !user.isAdmin) {
       return <Navigate to={redirectTo} />;
     } else {
       return children;
@@ -32,7 +40,11 @@ function App() {
         <Route path="/adminRegister" element={<Register type="admin"/>} />
         <Route path="/userLogin" element={<Login type="user"/>} />
         <Route path="/userRegister" element={<Register type="user"/>} />
-        <Route path="/admin/dashboard" element={<ProtectedRoute redirectTo="/adminLogin"><AdminLanding /></ProtectedRoute>} />
+        <Route path="/admin/dashboard" element={
+            <AdminProtectedRoute redirectTo="/adminLogin">
+              <AdminLanding />
+            </AdminProtectedRoute>
+          } />
       </Routes>
     </BrowserRouter>
   );
