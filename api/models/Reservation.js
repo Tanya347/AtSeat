@@ -6,18 +6,15 @@ const ReservationSchema = new mongoose.Schema(
         type: Date,
         required: true
     },
-    time: {
-        type: String
+    slots: {
+        type: String,
+        required: true
     },
     people: {
         type: Number,
         required: true
     },
-    status: {
-        type: String,
-        required: true
-    },
-    user: { 
+    author: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
