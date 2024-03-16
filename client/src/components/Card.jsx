@@ -15,7 +15,7 @@ const Card = (props) => {
           </div>
           <div className="detailsContainer">
             <h2>{props.name}</h2>
-            <h3>{props.location}</h3>
+            <h3>{props.location.substring(0, 50)}...</h3>
             <div className="star-rating-slider">
               Rating: 
                 {[1, 2, 3, 4, 5].map((star) => (

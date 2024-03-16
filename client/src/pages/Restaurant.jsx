@@ -76,7 +76,7 @@ const Restaurant = () => {
   });
 
   const getPlaces = async() => {
-    const promise = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${data?.location}.json?access_token=pk.eyJ1IjoidGFuZ2xlZHZpbmV6eiIsImEiOiJjbHRzdjRtYzAwcjl2Mm5vYW1hNDhza3kxIn0.GB7H7hpV4fw2CMRGQppeKw`)
+    const promise = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${data?.location}.json?access_token=${process.env.REACT_APP_API_MAPBOX_KEY}`)
     const placesData = await promise.json();
     if (placesData.features.length > 0) {
       const firstPlace = placesData.features[0]; // Assuming you want to use the first result
@@ -132,9 +132,9 @@ const Restaurant = () => {
           onMove={evt => setViewState(evt.viewState)}
           style={{width: 400, height: 300}}
           mapStyle="mapbox://styles/mapbox/streets-v9"
-          mapboxAccessToken={process.env.MAPBOX}
+          mapboxAccessToken={process.env.REACT_APP_API_MAPBOX_KEY}
         >
-          <Marker className="marker" longitude={77.2090057} latitude={28.6138954} color="red" />
+          <Marker className="marker" longitude={viewState.longitude} latitude={viewState.latitude} color="red" />
         </Map>
         </div>
           <div className="imgSlider">
