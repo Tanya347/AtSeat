@@ -132,7 +132,7 @@ const Restaurant = () => {
           onMove={evt => setViewState(evt.viewState)}
           style={{width: 400, height: 300}}
           mapStyle="mapbox://styles/mapbox/streets-v9"
-          mapboxAccessToken="pk.eyJ1IjoidGFuZ2xlZHZpbmV6eiIsImEiOiJjbHRzdjRtYzAwcjl2Mm5vYW1hNDhza3kxIn0.GB7H7hpV4fw2CMRGQppeKw"
+          mapboxAccessToken={process.env.MAPBOX}
         >
           <Marker className="marker" longitude={77.2090057} latitude={28.6138954} color="red" />
         </Map>
