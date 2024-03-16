@@ -1,4 +1,4 @@
-import React,  { useContext, useState } from 'react'
+import React,  { useContext, useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import useFetch from '../useFetch'
 import {
@@ -13,6 +13,8 @@ import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styles/restaurant.scss"
 import { slots } from '../data';
+import Map, {Marker} from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios'
 import { AuthContext } from '../authContext';
 
@@ -63,6 +65,30 @@ const Restaurant = () => {
     }
 }
 
+  useEffect(() => {
+    getPlaces();
+  }, [data]);
+
+  const [viewState, setViewState] = React.useState({
+    latitude: 37.8,
+    longitude: -122.4,
+    zoom: 12
+  });
+
+  const getPlaces = async() => {
+    const promise = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${data?.location}.json?access_token=pk.eyJ1IjoidGFuZ2xlZHZpbmV6eiIsImEiOiJjbHRzdjRtYzAwcjl2Mm5vYW1hNDhza3kxIn0.GB7H7hpV4fw2CMRGQppeKw`)
+    const placesData = await promise.json();
+    if (placesData.features.length > 0) {
+      const firstPlace = placesData.features[0]; // Assuming you want to use the first result
+      const { center } = firstPlace;
+      setViewState((prevState) => ({
+        ...prevState,
+        latitude: center[1],
+        longitude: center[0],
+      }));
+    }
+  }
+
   return (
     <div className='restaurant'>
       <Navbar />
@@ -100,6 +126,17 @@ const Restaurant = () => {
           </div>
         </div>
         <div className="rightContainer">
+        <div className="location-map">
+          <Map
+          {...viewState}
+          onMove={evt => setViewState(evt.viewState)}
+          style={{width: 400, height: 300}}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          mapboxAccessToken="pk.eyJ1IjoidGFuZ2xlZHZpbmV6eiIsImEiOiJjbHRzdjRtYzAwcjl2Mm5vYW1hNDhza3kxIn0.GB7H7hpV4fw2CMRGQppeKw"
+        >
+          <Marker className="marker" longitude={77.2090057} latitude={28.6138954} color="red" />
+        </Map>
+        </div>
           <div className="imgSlider">
             {data.photos ? (<div className="images">
               <img src={data.photos[slideNumber]} height="300px" alt="" />

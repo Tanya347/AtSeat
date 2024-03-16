@@ -21,7 +21,7 @@ const Navbar = ({type}) => {
 
     return (
         <div className='navContainer'>
-            <Link to="/home"> 
+            <Link to="/"> 
                 <p className='navLogo'>AtSeat</p>
             </Link>
 
