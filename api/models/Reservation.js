@@ -6,7 +6,7 @@ const ReservationSchema = new mongoose.Schema(
         type: Date,
         required: true
     },
-    slots: {
+    slot: {
         type: String,
         required: true
     },

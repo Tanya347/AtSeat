@@ -32,12 +32,6 @@ const RestaurantSchema = new mongoose.Schema(
     rating: {
         type: Number
     },
-    slots: [
-        {
-            time: "string",
-            unavailableDates: {type: [Date]}
-        }
-    ],
 
   },
   { timestamps: true }

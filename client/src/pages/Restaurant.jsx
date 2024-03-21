@@ -20,6 +20,7 @@ import { AuthContext } from '../authContext';
 
 const Restaurant = () => {
 
+  const [date, setDate] = useState("");
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const {data} = useFetch(`/restaurants/${id}`);
@@ -89,6 +90,8 @@ const Restaurant = () => {
     }
   }
 
+  console.log(date)
+
   return (
     <div className='restaurant'>
       <Navbar />
@@ -96,28 +99,32 @@ const Restaurant = () => {
         <div className="leftContainer">
           <h1>{data.name}</h1>
           <p>{data.description}</p>
+
+
           <div className="other-details">
             <div className="location"><span><FontAwesomeIcon icon={faLocationDot} /> Location:  </span>{data.location}</div>
             <div className="rating"><span><FontAwesomeIcon icon={faThumbsUp} /> Rating:  </span>{data.rating}</div>
             <div className="price"><span><FontAwesomeIcon icon={faMoneyBill} /> Price Range:  </span>{data.price}</div>
             <div className="contact"><span><FontAwesomeIcon icon={faPhone} /> Contact:  </span>{data.contact}</div>
           </div>
+
+
           <div className="reservation-box">
               <div className="form-input">
                 <label htmlFor="date">Date</label>
-                <input type="date" onChange={handleChange} id='date'/>
+                <input type="date" onChange={(e) => setDate(e.target.value)} id='date'/>
               </div>
-              <div className="form-input">
+              {date && <div className="form-input">
                 <label htmlFor="slots">Time</label>
                 <select id="slots" onChange={handleChange}>
                   <option key={0} value="none">-</option> 
                   {
                     slots.map((s, index) => (
-                      <option key={index} value={s.time}>{s.time}</option>
+                      <option key={index} value={s}>{s}</option>
                     ))
                   }
                 </select>
-              </div>
+              </div>}
               <div className="form-input">
                 <label htmlFor="people">People</label>
                 <input type="number" id='people' onChange={handleChange}/>
@@ -125,6 +132,8 @@ const Restaurant = () => {
               <button onClick={handleClick}>Make Reservation</button>
           </div>
         </div>
+
+
         <div className="rightContainer">
         <div className="location-map">
           <Map
@@ -137,6 +146,8 @@ const Restaurant = () => {
           <Marker className="marker" longitude={viewState.longitude} latitude={viewState.latitude} color="red" />
         </Map>
         </div>
+
+
           <div className="imgSlider">
             {data.photos ? (<div className="images">
               <img src={data.photos[slideNumber]} height="300px" alt="" />
