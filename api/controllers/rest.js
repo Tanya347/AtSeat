@@ -1,12 +1,18 @@
 // create, update, view, get all reservations
 
 import Restaurant from "../models/Restaurant.js";
+import Admin from "../models/Admin.js";
 
 export const createRestaurant = async (req, res, next) => {
-
+  const adminId = req.body.admin; 
   const newRestaurant = new Restaurant(req.body);
   try {
     const savedRestaurant = await newRestaurant.save();
+    await Admin.findOneAndUpdate(
+      { _id: adminId },
+      { $set: { rest: savedRestaurant._id } },
+      { new: true }
+    );
     res.status(200).json(savedRestaurant);
   } catch (err) {
     next(err);

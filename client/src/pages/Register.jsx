@@ -14,6 +14,10 @@ function Register({type}) {
     "user": "/users/register"
   }
 
+  const logins = {
+    "admin": "/adminLogin",
+    "user": "/userLogin"
+  }
   const [info, setInfo] = useState({});
 
   const handleChange = (e) => {
@@ -26,7 +30,7 @@ function Register({type}) {
     try {
         await axios.post(urls[type], info, {withcredentials: false})
 
-        navigate("/login");
+        navigate(logins[type]);
     } catch (err) {
         console.log(err)
     }

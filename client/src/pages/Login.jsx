@@ -19,7 +19,7 @@ function Login({type}) {
 
   const landings = {
     "admin": "/admin/dashboard",
-    "user": "/"
+    "user": "/home"
   }
 
   const { dispatch } = useContext(AuthContext);

@@ -28,35 +28,54 @@ const AdminLanding = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    try {
-      const list = await Promise.all(
-        Object.values(files).map(async (file) => {
-          const data = new FormData();
-          data.append("file", file);
-          data.append("upload_preset", "upload");
-          const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/dmjd7myiw/image/upload",
-            data, { withcredentials: false }
-          );
-
-          const { url } = uploadRes.data;
-          return url;
-        })
-      );
-
+    
+    if(files) {
+      try {
+        const list = await Promise.all(
+          Object.values(files).map(async (file) => {
+            const data = new FormData();
+            data.append("file", file);
+            data.append("upload_preset", "upload");
+            const uploadRes = await axios.post(
+              "https://api.cloudinary.com/v1_1/dmjd7myiw/image/upload",
+              data, { withcredentials: false }
+            );
+  
+            const { url } = uploadRes.data;
+            return url;
+          })
+        );
+  
+        const newpost = {
+          ...info,
+          admin: user._id,
+          photos: list,
+          rating: rating,
+          slots: slots
+        };
+  
+        await axios.post("http://localhost:7700/api/restaurants", newpost)
+  
+        navigate("/admin/restaurant/:id");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    else {
       const newpost = {
         ...info,
         admin: user._id,
-        photos: list,
         rating: rating,
         slots: slots
-      };
+      }
 
-      await axios.post("http://localhost:7700/api/restaurants", newpost)
-
-      navigate("/explore");
-    } catch (err) {
-      console.log(err);
+      try {
+        await axios.post("http://localhost:7700/api/restaurants", newpost)
+  
+        navigate("/admin/restaurant/:id");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

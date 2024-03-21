@@ -47,7 +47,7 @@ export const deleteReservation = async (req, res, next) => {
 export const getReservationsByUserId = async (req, res, next) => {
   const userId = req.params.id;
   try {
-    const reservations = await Reservation.find({ author: userId });
+    const reservations = await Reservation.find({ author: userId }).populate('rest', 'name');
     res.status(200).json(reservations);
   } catch (error) {
     next(err);
@@ -58,7 +58,7 @@ export const getReservationsByUserId = async (req, res, next) => {
 export const getReservationsByRestId = async (req, res, next) => {
   const restId = req.params.id;
   try {
-    const reservations = await Reservation.find({ rest: restId });
+    const reservations = await Reservation.find({ rest: restId }).populate('rest', 'name');
     res.status(200).json(reservations);
   } catch (error) {
     next(err);

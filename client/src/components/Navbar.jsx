@@ -29,12 +29,15 @@ const Navbar = ({type}) => {
             <label htmlFor="menu-bar"><FontAwesomeIcon icon={faBars} className="icon" /></label>
             <nav className='navbar'>
                 <ul>
-                    <Link to="/landing">
+                    {!user && <Link to="/landing">
                         <li><p>Landing</p></li>
-                    </Link>
-                    <Link to="/">
+                    </Link>}
+                    {user && !user.isAdmin && <Link to="/home">
                         <li><p>Search Page</p></li>
-                    </Link>
+                    </Link>}
+                    {user && user.isAdmin && <Link to={`/admin/restaurant/${user.rest}`}>
+                        <li><p>Restaurant</p></li>
+                    </Link>}
                     <Link to="/reservations">
                         <li><p>Reservations</p></li>
                     </Link>

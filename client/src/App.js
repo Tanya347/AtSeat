@@ -32,10 +32,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ProtectedRoute redirectTo="/userLogin"><Home /></ProtectedRoute>} />
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/home" element={<ProtectedRoute redirectTo="/userLogin"><Home /></ProtectedRoute>} />
+        <Route path="/" element={<Landing />} />
         <Route path="/adminLogin" element={<Login type="admin"/>} />
-        <Route path="/restaurant/:id" element={<ProtectedRoute redirectTo="/userLogin"><Restaurant /></ProtectedRoute>} />
+        <Route path="/restaurant/:id" element={<ProtectedRoute redirectTo="/userLogin"><Restaurant type="user" /></ProtectedRoute>} />
         <Route path="/reservations" element={<ProtectedRoute redirectTo="/userLogin"><Reservations /></ProtectedRoute>} />
         <Route path="/adminRegister" element={<Register type="admin"/>} />
         <Route path="/userLogin" element={<Login type="user"/>} />
@@ -43,6 +43,11 @@ function App() {
         <Route path="/admin/dashboard" element={
             <AdminProtectedRoute redirectTo="/adminLogin">
               <AdminLanding />
+            </AdminProtectedRoute>
+          } />
+        <Route path="/admin/restaurant/:id" element={
+            <AdminProtectedRoute redirectTo="/adminLogin">
+              <Restaurant type="admin" />
             </AdminProtectedRoute>
           } />
       </Routes>

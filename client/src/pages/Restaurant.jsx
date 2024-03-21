@@ -9,24 +9,27 @@ import {
   faCircleArrowRight,
   faPhone
 } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styles/restaurant.scss"
-import { slots } from '../data';
 import Map, {Marker} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios'
 import { AuthContext } from '../authContext';
 
-const Restaurant = () => {
+const Restaurant = ({type}) => {
 
   const [date, setDate] = useState("");
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  let id;
+  if(type==="user")
+    id = location.pathname.split("/")[2];
+  else
+    id = location.pathname.split("/")[3];
   const {data} = useFetch(`/restaurants/${id}`);
+  const slots = useFetch(`/reservations/slots/${id}/${date}`).data
 
   const [slideNumber, setSlideNumber] = useState(0);
-
   const handleMove = (direction) => {
     let newSlideNumber;
     let size = data.photos.length
@@ -40,6 +43,7 @@ const Restaurant = () => {
 
   const { user } = useContext(AuthContext);
   const [info, setInfo] = useState({});
+  const navigate = useNavigate();
 
   // set the usestate to the data user passed 
   const handleChange = (e) => {
@@ -51,14 +55,14 @@ const Restaurant = () => {
     e.preventDefault();
 
     const newRes = {
-        ...info, author: user._id, rest: id
+        ...info, author: user._id, rest: id, date:date
     }
     try {
         await axios.post("http://localhost:7700/api/reservations", newRes, {
             withCredentials: false
         })
 
-        window.location.reload();
+        navigate('/reservations')
 
     }
     catch (err) {
@@ -90,7 +94,6 @@ const Restaurant = () => {
     }
   }
 
-  console.log(date)
 
   return (
     <div className='restaurant'>
@@ -109,17 +112,17 @@ const Restaurant = () => {
           </div>
 
 
-          <div className="reservation-box">
+          {!user.isAdmin && <div className="reservation-box">
               <div className="form-input">
                 <label htmlFor="date">Date</label>
                 <input type="date" onChange={(e) => setDate(e.target.value)} id='date'/>
               </div>
               {date && <div className="form-input">
-                <label htmlFor="slots">Time</label>
-                <select id="slots" onChange={handleChange}>
+                <label htmlFor="slot">Time</label>
+                <select id="slot" onChange={handleChange}>
                   <option key={0} value="none">-</option> 
                   {
-                    slots.map((s, index) => (
+                    slots?.map((s, index) => (
                       <option key={index} value={s}>{s}</option>
                     ))
                   }
@@ -130,7 +133,7 @@ const Restaurant = () => {
                 <input type="number" id='people' onChange={handleChange}/>
               </div>
               <button onClick={handleClick}>Make Reservation</button>
-          </div>
+          </div>}
         </div>
 
 
