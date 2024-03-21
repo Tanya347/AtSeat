@@ -36,7 +36,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/adminLogin" element={<Login type="admin"/>} />
         <Route path="/restaurant/:id" element={<ProtectedRoute redirectTo="/userLogin"><Restaurant type="user" /></ProtectedRoute>} />
-        <Route path="/reservations" element={<ProtectedRoute redirectTo="/userLogin"><Reservations /></ProtectedRoute>} />
+        <Route path="/reservations" element={<ProtectedRoute redirectTo="/userLogin"><Reservations type="user"/></ProtectedRoute>} />
         <Route path="/adminRegister" element={<Register type="admin"/>} />
         <Route path="/userLogin" element={<Login type="user"/>} />
         <Route path="/userRegister" element={<Register type="user"/>} />
@@ -48,6 +48,11 @@ function App() {
         <Route path="/admin/restaurant/:id" element={
             <AdminProtectedRoute redirectTo="/adminLogin">
               <Restaurant type="admin" />
+            </AdminProtectedRoute>
+          } />
+        <Route path="/admin/reservations" element={
+            <AdminProtectedRoute redirectTo="/adminLogin">
+              <Reservations type= "admin" />
             </AdminProtectedRoute>
           } />
       </Routes>

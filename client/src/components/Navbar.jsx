@@ -38,18 +38,19 @@ const Navbar = ({type}) => {
                     {user && user.isAdmin && <Link to={`/admin/restaurant/${user.rest}`}>
                         <li><p>Restaurant</p></li>
                     </Link>}
-                    <Link to="/reservations">
+                    {user && user.isAdmin && <Link to="/admin/reservations">
                         <li><p>Reservations</p></li>
-                    </Link>
+                    </Link>}
+                    {user && !user.isAdmin && <Link to="/reservations">
+                        <li><p>Reservations</p></li>
+                    </Link>}
                     {user ? (<>
 
-                        <Link to={`/user/${user._id}`}>
                             <li onClick={handleClick} style={{ cursor: "pointer" }}><p>Logout</p></li>
                             <li><div className="profilePicture">
                                 <img src={user.profilePicture || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"} alt="" />
                             </div></li>
                             <li id="usernamename"><p>{user.username}</p></li>
-                        </Link>
                     </>
                     )
                         :

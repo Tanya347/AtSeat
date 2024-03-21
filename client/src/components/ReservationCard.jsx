@@ -22,7 +22,7 @@ const ReservationCard = ({props}) => {
         <div className="details">
             <div className="res-name">
                 <h1>{props.rest.name}</h1>
-                {!props.isAdmin && 
+                {props.type === "Admin" && 
                     <Link to={`/restaurant/${props.rest._id}`}>
                         <button>View</button>
                     </Link>
@@ -30,7 +30,7 @@ const ReservationCard = ({props}) => {
             </div>
             <div className='res-details'><p>Date: </p> <span>{props.date.substring(0, 10)}</span> <p>Time: </p> <span>{props.slot}</span> <p>People: </p> <span>{props.people}</span></div>
         </div>
-        {!props.isAdmin && <div className="icon">
+        {props.type === "Admin" && <div className="icon">
             <FontAwesomeIcon icon={faTrash} onClick={handleClick}/>
         </div>}
     </div>
